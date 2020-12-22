@@ -1,0 +1,11 @@
+# folder
+log/
+dist/
+node_modules/
+.nyc_output/
+
+# secret
+.env
+
+# generated
+yarn-error.log

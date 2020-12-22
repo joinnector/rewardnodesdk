@@ -1,0 +1,70 @@
+{
+	"env": {
+		"es6": true,
+		"node": true,
+		"mocha": true,
+		"mongo": true
+	},
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "module"
+	},
+	"rules": {
+		"camelcase": "off",
+		"@typescript-eslint/camelcase": [
+			"off"
+		],
+		"@typescript-eslint/no-var-requires": 0,
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-inferrable-types": [
+			"warn",
+			{
+				"ignoreParameters": true
+			}
+		],
+		"@typescript-eslint/no-unused-vars": "warn",
+		"require-atomic-updates": "off",
+		"indent": [
+			"error",
+			"tab"
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"quotes": [
+			"error",
+			"double"
+		],
+		"no-use-before-define": [
+			"error",
+			{
+				"functions": true,
+				"classes": true,
+				"variables": true
+			}
+		],
+		"no-console": [
+			"error",
+			{
+				"allow": [
+					"warn",
+					"error",
+					"log"
+				]
+			}
+		]
+	}
+}
