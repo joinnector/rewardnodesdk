@@ -1,5 +1,4 @@
 // system or lib import
-import string_template from "string-template";
 import uuid_validate from "uuid-validate";
 import net from "net";
 import lodash from "lodash";
@@ -312,10 +311,6 @@ class CollectionHelper {
 	// getters
 	static get_lodash(): app_type.LodashInstance {
 		return lodash;
-	}
-
-	static get_string_templater(): app_type.TemplatorInstance {
-		return string_template;
 	}
 }
 

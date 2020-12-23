@@ -1,5 +1,4 @@
 // system import
-import string_template from "string-template";
 import lodash from "lodash";
 import moment from "moment";
 import winston from "winston";
@@ -31,7 +30,6 @@ export type CallbackFunction = (value?: any) => void;
 
 export type MomentInstance = moment.Moment;
 export type LodashInstance = typeof lodash;
-export type TemplatorInstance = string_template
 
 export type AxiosClientInstance = axios.AxiosInstance;
 export type AxiosClientRequestConfig = axios.AxiosRequestConfig;
