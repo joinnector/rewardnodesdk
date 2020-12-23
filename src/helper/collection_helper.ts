@@ -1,18 +1,13 @@
 // system or lib import
+import string_template from "string-template";
 import uuid_validate from "uuid-validate";
-import stack_trace from "stack-trace";
 import net from "net";
 import lodash from "lodash";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 // app import
-import constant_helper from "./constant_helper";
-
 import custom_generic_error from "../error/custom_generic_error";
-
-import status_code_enum from "../enum/status_code_enum";
-import status_message_enum from "../enum/status_message_enum";
 
 import * as app_type from "../types/app_type";
 
@@ -131,14 +126,12 @@ class CollectionHelper {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	static convert_to_isodatetime_utc_from_datetime(datetime: any): string {
 		if (CollectionHelper.validate_is_null_or_undefined(datetime) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Datetime is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Datetime is not valid");
 		}
 
 		// custom
 		if (moment.isDate(datetime) === false) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Datetime is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Datetime is not valid");
 		}
 
 		// get the offset
@@ -149,14 +142,12 @@ class CollectionHelper {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	static convert_to_moment_utc_from_datetime(datetime: any): app_type.MomentInstance {
 		if (CollectionHelper.validate_is_null_or_undefined(datetime) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Datetime is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Datetime is not valid");
 		}
 
 		// custom
 		if (moment.isDate(datetime) === false) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Datetime is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Datetime is not valid");
 		}
 
 		// safe convert to utc if not in utc
@@ -166,14 +157,12 @@ class CollectionHelper {
 
 	static convert_to_string_first_capital_from_any_string(value: string): string {
 		if (CollectionHelper.validate_is_null_or_undefined(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		// check for type
 		if (CollectionHelper.validate_not_string(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		return `${value[0].toUpperCase()}${value.substr(1)}`;
@@ -186,13 +175,11 @@ class CollectionHelper {
 	static process_serialize_data(data: any, silent: boolean = false): string {
 		try {
 			if (CollectionHelper.validate_is_null_or_undefined(data) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Data is not valid`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Data is not valid");
 			}
 
 			if (CollectionHelper.validate_is_null_or_undefined(silent) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Silent is not valid");
 			}
 
 			// custom
@@ -200,13 +187,11 @@ class CollectionHelper {
 
 			// check for type
 			if (CollectionHelper.validate_not_boolean(silent) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Silent is not valid");
 			}
 
 			if (CollectionHelper.validate_not_array(data) === true && CollectionHelper.validate_not_object(data) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Data is not valid`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Data is not valid");
 			}
 
 			// TODO required as values can be anything
@@ -224,8 +209,7 @@ class CollectionHelper {
 			return strigified;
 		} catch (error) {
 			if (silent === true) return data;
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid operation, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack, status_code_enum.DATABASE_FAILURE));
+			throw new custom_generic_error("Data serialization failed");
 		}
 	}
 
@@ -236,13 +220,11 @@ class CollectionHelper {
 	static process_deserialize_data(data: any, silent: boolean = false): app_type.ObjectAnyAttributes | app_type.ObjectAnyAttributes[] {
 		try {
 			if (CollectionHelper.validate_is_null_or_undefined(data) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Data is not valid");
 			}
 
 			if (CollectionHelper.validate_is_null_or_undefined(silent) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Silent is not valid");
 			}
 
 			// custom
@@ -251,44 +233,37 @@ class CollectionHelper {
 
 			// check for type
 			if (CollectionHelper.validate_not_boolean(silent) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Silent is not valid");
 			}
 
 			if (CollectionHelper.validate_not_string(data) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+				throw new custom_generic_error("Data is not valid");
 			}
 
 			return JSON.parse(data);
 		} catch (error) {
 			if (silent === true) return data;
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid operation, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack, status_code_enum.DATABASE_FAILURE));
+			throw new custom_generic_error("Data deserialization failed");
 		}
 	}
 
 	static process_key_join(value: string[], separator: string = "_"): string {
 		if (CollectionHelper.validate_is_null_or_undefined(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		if (CollectionHelper.validate_is_null_or_undefined(separator) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Seperator is not valid");
 		}
 
 
 		// check for type
 		if (CollectionHelper.validate_not_array(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		if (CollectionHelper.validate_not_string(separator) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Seperator is not valid");
 		}
 
 		return value.join(separator);
@@ -308,14 +283,12 @@ class CollectionHelper {
 
 	static process_slugify(value: string): string {
 		if (CollectionHelper.validate_is_null_or_undefined(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Seperator is not valid");
 		}
 
 		// check for type
 		if (CollectionHelper.validate_not_string(value) === true) {
-			const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Seperator is not valid");
 		}
 
 		const a = "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
@@ -341,107 +314,9 @@ class CollectionHelper {
 		return lodash;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	static process_error_title(error: any): string {
-		try {
-			if (CollectionHelper.validate_is_null_or_undefined(error) === true) return "";
-
-			// custom
-			if (CollectionHelper.validate_is_string(error)) return error;
-			if ((error instanceof Error) === false) return String(error);
-
-			const call_site = stack_trace.parse(error)[0];
-			return `${(error as Error).name} : ${call_site.getFileName()} : ${call_site.getFunctionName()} : ${call_site.getLineNumber()}`;
-		} catch (error) {
-			return "";
-		}
+	static get_string_templater(): app_type.TemplatorInstance {
+		return string_template;
 	}
-
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	static process_error_message(error: any): string {
-		try {
-			if (CollectionHelper.validate_is_null_or_undefined(error) === true) return "";
-
-			// custom
-			if (CollectionHelper.validate_is_string(error)) return error;
-			if ((error instanceof Error) === false) return String(error);
-
-			return (error as Error).message;
-		} catch (error) {
-			return "";
-		}
-	}
-
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	static process_error_stack(error: any): string {
-		try {
-			if (CollectionHelper.validate_is_null_or_undefined(error) === true) return "";
-
-			// custom
-			if (CollectionHelper.validate_is_string(error)) return error;
-			if ((error instanceof Error) === false) return String(error);
-
-			return (error as Error).stack || "";
-		} catch (error) {
-			return "";
-		}
-	}
-
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	static process_error_info(artificial_error: any, actual_error: any = null): app_type.ErrorInfo {
-		return {
-			title: CollectionHelper.process_error_title(artificial_error),
-			message: CollectionHelper.process_error_message(actual_error || artificial_error),
-			stack: CollectionHelper.process_error_stack(actual_error || artificial_error)
-		};
-	}
-
-	// helps in building the response and error passing around the app
-	static process_pack_error(title: string = constant_helper.get_app_constant().APP_TITLE_INVALID_PAYLOAD, message: string = `${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`, stack: string = "", code: number = status_code_enum.BAD_REQUEST): string {
-		try {
-			if (CollectionHelper.validate_is_null_or_undefined(title) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			if (CollectionHelper.validate_is_null_or_undefined(message) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			if (CollectionHelper.validate_is_null_or_undefined(stack) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			if (CollectionHelper.validate_is_null_or_undefined(code) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			// check for type
-			if (CollectionHelper.validate_not_string(title) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			if (CollectionHelper.validate_not_string(message) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			if (CollectionHelper.validate_not_number(code) === true) {
-				const error_info = CollectionHelper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-				throw new custom_generic_error(CollectionHelper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-			}
-
-			// title is basically the file name along with line number
-			return `${title} % ${message} % ${stack} % ${code}`;
-		} catch (error) {
-			return "";
-		}
-	}
-
 }
 
 export default CollectionHelper;

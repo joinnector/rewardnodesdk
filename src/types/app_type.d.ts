@@ -1,4 +1,5 @@
 // system import
+import string_template from "string-template";
 import lodash from "lodash";
 import moment from "moment";
 import winston from "winston";
@@ -30,6 +31,7 @@ export type CallbackFunction = (value?: any) => void;
 
 export type MomentInstance = moment.Moment;
 export type LodashInstance = typeof lodash;
+export type TemplatorInstance = string_template
 
 export type AxiosClientInstance = axios.AxiosInstance;
 export type AxiosClientRequestConfig = axios.AxiosRequestConfig;
@@ -52,7 +54,6 @@ export interface WinstonInstance {
 
 export interface SecurityInstance {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	process_basic_auth_unpack(value: string): SecurityBasicAuthObject;
 	process_hmac_signature(value: string, secret: string): string;
 	process_sha256_hash(value: string): string;
 }
@@ -89,4 +90,11 @@ export interface AxiosHeader {
 export interface SecurityBasicAuthObject {
 	name: string;
 	pass: string;
+}
+
+export interface PagingAttributes {
+	limit: number;
+	page: number;
+	sort?: string;
+	sort_op?: "ASC" | "DESC" | "+" | "-";
 }

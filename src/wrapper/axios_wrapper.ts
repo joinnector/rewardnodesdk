@@ -12,12 +12,12 @@ import custom_generic_error from "../error/custom_generic_error";
 class AxiosWrapper {
 	axios_wrapper!: axios_client;
 
-	init(): void {
-		this.prepare_common_wrapper();
+	init(key:string, secret: string): void {
+		this.prepare_common_wrapper(key, secret);
 	}
 
-	prepare_common_wrapper(): void {
-		this.axios_wrapper = new axios_client();
+	prepare_common_wrapper(key:string, secret: string): void {
+		this.axios_wrapper = new axios_client(key, secret);
 		this.axios_wrapper.process_attach_winston(winston_wrapper.get_wrapper());
 
 		// init
@@ -27,8 +27,7 @@ class AxiosWrapper {
 	// getter
 	get_wrapper(): axios_client {
 		if (collection_helper.validate_is_null_or_undefined(this.axios_wrapper) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Wrapper is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get http wrapper instance");
 		}
 
 		return this.axios_wrapper;

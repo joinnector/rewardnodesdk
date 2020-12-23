@@ -24,8 +24,7 @@ class SecurityWrapper {
 	// getter
 	get_wrapper(): security_client {
 		if (collection_helper.validate_is_null_or_undefined(this.security_wrapper) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Wrapper is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get security wrapper instance");
 		}
 		return this.security_wrapper;
 	}

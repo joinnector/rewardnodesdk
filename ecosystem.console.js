@@ -7,7 +7,7 @@ function puts(p) {
 global["puts"] = puts;
 global["collection_helper"] = require("./dist/helper/collection_helper").default;
 global["constant_helper"] = require("./dist/helper/constant_helper").default;
-global["app"] = require("./dist/app");
+global["app"] = require("./dist/app").default;
 
 repl.start({
 	prompt: "app > "

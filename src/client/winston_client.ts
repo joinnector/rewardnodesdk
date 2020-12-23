@@ -80,8 +80,7 @@ class WinstonClient {
 	// process
 	process_attach_security(security_instance: app_type.SecurityInstance): void {
 		if (collection_helper.validate_is_null_or_undefined(security_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Security instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get security client instance");
 		}
 
 		this.security_instance = security_instance;
@@ -90,18 +89,15 @@ class WinstonClient {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	process_ie_log(level: string, title: string, message: app_type.AnyAttributes = "", stack: app_type.AnyAttributes = "", param: app_type.AnyAttributes = ""): void {
 		if (collection_helper.validate_is_null_or_undefined(this.ie_winston_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Winston instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get logger instance");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(level) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Level is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Level is not valid");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(title) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Title is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Title is not valid");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(message) === true) message = "";
@@ -110,13 +106,11 @@ class WinstonClient {
 
 		// check for type
 		if (collection_helper.validate_not_string(level) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Level is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Level is not valid");
 		}
 
 		if (collection_helper.validate_not_string(title) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Level is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Title is not valid");
 		}
 
 		const winstonopts = collection_helper.process_serialize_data({

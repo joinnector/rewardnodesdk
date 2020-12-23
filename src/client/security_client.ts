@@ -1,5 +1,4 @@
 // system import
-import basic_auth from "basic-auth";
 import crypto from "crypto";
 
 // app import
@@ -30,41 +29,22 @@ class SecurityClient {
 		}
 	}
 
-	process_basic_auth_unpack(value: string): app_type.SecurityBasicAuthObject {
-		if (collection_helper.validate_is_null_or_undefined(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-		}
-
-		// check for type
-		if (collection_helper.validate_not_string(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
-		}
-
-		return basic_auth.parse(value) as app_type.SecurityBasicAuthObject;
-	}
-
 	process_hmac_signature(value: string, password: string): string {
 		if (collection_helper.validate_is_null_or_undefined(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(password) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Salt is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Password is not valid");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		if (collection_helper.validate_not_string(password) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Salt is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Password is not valid");
 		}
 
 		const hmac_alog = constant_helper.get_setting_constant().HMAC_ALGO as string;
@@ -74,14 +54,12 @@ class SecurityClient {
 
 	process_sha256_hash(value: string): string {
 		if (collection_helper.validate_is_null_or_undefined(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(value) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Value is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Value is not valid");
 		}
 
 		const hash_alog = constant_helper.get_setting_constant().HASH_ALGO as string;

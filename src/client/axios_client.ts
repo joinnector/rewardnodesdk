@@ -4,7 +4,6 @@ import querystring from "querystring";
 
 // app import
 import collection_helper from "../helper/collection_helper";
-import constant_helper from "../helper/constant_helper";
 
 import http_method_type_enum from "../enum/http_method_type_enum";
 
@@ -15,10 +14,14 @@ import * as app_type from "../types/app_type";
 class AxiosClient {
 	axios_instance!: app_type.AxiosClientInstance;
 	winston_instance!: app_type.WinstonInstance;
+	key!: string;
+	secret!: string;
 	notify_callback!: app_type.CallbackFunction;
 	notify_callback_called: boolean;
 
-	constructor(notify_callback?: app_type.CallbackFunction) {
+	constructor(key: string, secret: string, notify_callback?: app_type.CallbackFunction) {
+		this.key = key;
+		this.secret = secret;
 		this.notify_callback_called = false;
 		if (collection_helper.validate_is_function(notify_callback) === true) this.notify_callback = notify_callback!;
 	}
@@ -40,8 +43,7 @@ class AxiosClient {
 	// process
 	process_attach_winston(winston_instance: app_type.WinstonInstance): void {
 		if (collection_helper.validate_is_null_or_undefined(winston_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Winston instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get logger instance");
 		}
 
 		this.winston_instance = winston_instance;
@@ -50,32 +52,27 @@ class AxiosClient {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	async process_axios_get(url: string, headers: app_type.AxiosHeader, params: app_type.ObjectAnyAttributes): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(this.axios_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Axios instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get http client instance");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request url");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(headers) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Header is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request headers");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Header is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request url is not valid");
 		}
 
 		// attach default headers
 		if (headers["content-type"] === "application/json") {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/json" };
 		} else {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request headers are not valid");
 		}
 
 		const axiosopts: app_type.AxiosClientRequestConfig = {
@@ -89,37 +86,31 @@ class AxiosClient {
 			axiosopts.params = params;
 		}
 
-		const request_axios_result = await this.axios_instance.request(axiosopts);
-		return request_axios_result.data;
+		return await this.axios_instance.request(axiosopts);
 	}
 
 	// TODO required as data can be anything
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	async process_axios_put(url: string, headers: app_type.AxiosHeader, params: app_type.ObjectAnyAttributes, data: app_type.ObjectAnyAttributes): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(this.axios_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Axios instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get http client instance");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request url");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(headers) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Header is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request headers");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(data) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Data is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request body");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request url is not valid");
 		}
 
 		// attach default headers
@@ -129,8 +120,7 @@ class AxiosClient {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/x-www-form-urlencoded" };
 			data = querystring.stringify(data) as unknown as app_type.ObjectAnyAttributes;
 		} else {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request headers are not valid");
 		}
 
 		const axiosopts: app_type.AxiosClientRequestConfig = {
@@ -145,39 +135,33 @@ class AxiosClient {
 			axiosopts.params = params;
 		}
 
-		const request_axios_result = await this.axios_instance.request(axiosopts);
-		return request_axios_result.data;
+		return await this.axios_instance.request(axiosopts);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	async process_axios_delete(url: string, headers: app_type.AxiosHeader, params: app_type.ObjectAnyAttributes): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(this.axios_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Axios instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get http client instance");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request url");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(headers) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Header is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request headers");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request url is not valid");
 		}
 
 		// attach default headers
 		if (headers["content-type"] === "application/json") {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/json" };
 		} else {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request headers are not valid");
 		}
 
 		const axiosopts: app_type.AxiosClientRequestConfig = {
@@ -191,37 +175,31 @@ class AxiosClient {
 			axiosopts.params = params;
 		}
 
-		const request_axios_result = await this.axios_instance.request(axiosopts);
-		return request_axios_result.data;
+		return await this.axios_instance.request(axiosopts);
 	}
 
 	// TODO required as data can be anything
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	async process_axios_post(url: string, headers: app_type.AxiosHeader, params: app_type.ObjectAnyAttributes, data: app_type.ObjectAnyAttributes): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(this.axios_instance) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Axios instance is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get http client instance");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request url");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(headers) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Header is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request headers");
 		}
 
 		if (collection_helper.validate_is_null_or_undefined(data) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Data is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Unable to get request body");
 		}
 
 		// check for type
 		if (collection_helper.validate_not_string(url) === true) {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Url is not valid`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request url is not valid");
 		}
 
 		// attach default headers
@@ -231,8 +209,7 @@ class AxiosClient {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/x-www-form-urlencoded" };
 			data = querystring.stringify(data) as unknown as app_type.ObjectAnyAttributes;
 		} else {
-			const error_info = collection_helper.process_error_info(new Error(`${constant_helper.get_app_constant().APP_CUSTOM_TEXT_IDENTIFIER} Invalid payload, Something went wrong`));
-			throw new custom_generic_error(collection_helper.process_pack_error(error_info.title, error_info.message, error_info.stack));
+			throw new custom_generic_error("Request headers are not valid");
 		}
 
 		const axiosopts: app_type.AxiosClientRequestConfig = {
@@ -247,8 +224,7 @@ class AxiosClient {
 			axiosopts.params = params;
 		}
 
-		const request_axios_result = await this.axios_instance.request(axiosopts);
-		return request_axios_result.data;
+		return await this.axios_instance.request(axiosopts);
 	}
 }
 
