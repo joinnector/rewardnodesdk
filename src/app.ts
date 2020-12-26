@@ -3,7 +3,7 @@ import security_wrapper from "./wrapper/security_wrapper";
 import winston_wrapper from "./wrapper/winston_wrapper";
 import axios_wrapper from "./wrapper/axios_wrapper";
 
-// services
+// service
 import coupon_service from "./service/coupon_service";
 import currency_service from "./service/currency_service";
 import deal_service from "./service/deal_service";

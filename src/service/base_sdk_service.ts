@@ -55,7 +55,7 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
 
-	async save(id: string | null = null, payload: app_type.ObjectAnyAttributes, action: string = "save"): Promise<any> {
+	async save(id: string, payload: app_type.ObjectAnyAttributes, action: string = "save"): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(id) === true) {
 			throw new custom_generic_error("Id is not valid");
 		}
