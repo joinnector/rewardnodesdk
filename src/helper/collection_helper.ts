@@ -1,14 +1,14 @@
 // system or lib import
-import uuid_validate from "uuid-validate";
-import net from "net";
 import lodash from "lodash";
 import moment from "moment";
+import net from "net";
 import { v4 as uuidv4 } from "uuid";
-
+import uuid_validate from "uuid-validate";
 // app import
 import custom_generic_error from "../error/custom_generic_error";
-
 import * as app_type from "../types/app_type";
+
+
 
 class CollectionHelper {
 
@@ -278,34 +278,6 @@ class CollectionHelper {
 
 	static process_new_random(min: number, max: number): number {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
-
-	static process_slugify(value: string): string {
-		if (CollectionHelper.validate_is_null_or_undefined(value) === true) {
-			throw new custom_generic_error("Seperator is not valid");
-		}
-
-		// check for type
-		if (CollectionHelper.validate_not_string(value) === true) {
-			throw new custom_generic_error("Seperator is not valid");
-		}
-
-		const a = "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
-		const b = "aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------";
-		const p = new RegExp(a.split("").join("|"), "g");
-
-		return value
-			.toString()
-			.toLowerCase()
-			.replace(/\s+/g, "-") // Replace spaces with -
-			.replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-			.replace(/&/g, "-and-") // Replace & with 'and'
-			// eslint-disable-next-line no-useless-escape
-			.replace(/[^\w\-]+/g, "") // Remove all non-word characters
-			// eslint-disable-next-line no-useless-escape
-			.replace(/\-\-+/g, "-") // Replace multiple - with single -
-			.replace(/^-+/, "") // Trim - from start of text
-			.replace(/-+$/, ""); // Trim - from end of text
 	}
 
 	// getters

@@ -1,13 +1,13 @@
 // system or lib import
 import winston from "winston";
-
+import custom_generic_error from "../error/custom_generic_error";
 // app import
 import collection_helper from "../helper/collection_helper";
 import constant_helper from "../helper/constant_helper";
-
-import custom_generic_error from "../error/custom_generic_error";
-
 import * as app_type from "../types/app_type";
+
+
+
 
 class WinstonClient {
 	ie_winston_instance!: app_type.WinstonLogger;
@@ -87,7 +87,7 @@ class WinstonClient {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	process_ie_log(level: string, title: string, message: app_type.AnyAttributes = "", stack: app_type.AnyAttributes = "", param: app_type.AnyAttributes = ""): void {
+	process_ie_log(level: string, title: string = "", message: app_type.AnyAttributes = "", stack: app_type.AnyAttributes = "", param: app_type.AnyAttributes = ""): void {
 		if (collection_helper.validate_is_null_or_undefined(this.ie_winston_instance) === true) {
 			throw new custom_generic_error("Unable to get logger instance");
 		}
@@ -96,10 +96,7 @@ class WinstonClient {
 			throw new custom_generic_error("Level is not valid");
 		}
 
-		if (collection_helper.validate_is_null_or_undefined(title) === true) {
-			throw new custom_generic_error("Title is not valid");
-		}
-
+		if (collection_helper.validate_is_null_or_undefined(title) === true) title = "";
 		if (collection_helper.validate_is_null_or_undefined(message) === true) message = "";
 		if (collection_helper.validate_is_null_or_undefined(stack) === true) stack = "";
 		if (collection_helper.validate_is_null_or_undefined(param) === true) param = "";
