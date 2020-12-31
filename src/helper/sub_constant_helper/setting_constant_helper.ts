@@ -72,7 +72,6 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			endpoint: "/leads/{id}",
 			prefix: "/api/v2/merchant",
 			has_authorization: true,
-			has_urlencoded: true
 		},
 		save: {
 			endpoint: "/leads/{id}",
