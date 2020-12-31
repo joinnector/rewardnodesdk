@@ -1,12 +1,12 @@
-import constant_helper from "../helper/constant_helper";
+import custom_generic_error from "../error/custom_generic_error";
 import collection_helper from "../helper/collection_helper";
-
+import constant_helper from "../helper/constant_helper";
+import * as app_type from "../types/app_type";
 import axios_wrapper from "../wrapper/axios_wrapper";
 import security_wrapper from "../wrapper/security_wrapper";
 
-import custom_generic_error from "../error/custom_generic_error";
 
-import * as app_type from "../types/app_type";
+
 
 class BaseSDKService {
 	name: string;
@@ -51,6 +51,7 @@ class BaseSDKService {
 		const params = { id: id };
 
 		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		if (apimapopts[action].has_urlencoded) headers["content-type"] = "application/x-www-form-urlencoded";
 
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}

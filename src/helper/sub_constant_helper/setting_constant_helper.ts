@@ -25,12 +25,6 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			prefix: "/api/v2/merchant",
 			has_authorization: true,
 		},
-		save: {
-			endpoint: "/coupons/{id}",
-			prefix: "/api/v2/merchant",
-			has_authorization: true,
-			has_signature: true,
-		},
 		list: {
 			endpoint: "/coupons",
 			prefix: "/api/v2/merchant",
@@ -78,6 +72,7 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			endpoint: "/leads/{id}",
 			prefix: "/api/v2/merchant",
 			has_authorization: true,
+			has_urlencoded: true
 		},
 		save: {
 			endpoint: "/leads/{id}",
