@@ -55,23 +55,22 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
 
-	async get_by(key: string | null = null, action: string = "get"): Promise<any> {
-		if (collection_helper.validate_is_null_or_undefined(id) === true) {
-			throw new custom_generic_error("Id is not valid");
-		}
-
+	async get_by(by_key: string, by_value: string, action: string = "get"): Promise<any> {
 		const apimapopts = constant_helper.get_setting_constant().API_MAP[this.name] as app_type.ObjectAnyAttributes;
 		if (collection_helper.validate_is_null_or_undefined(apimapopts[action]) === true) {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "");
+		let url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "");
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
+		const params = { id: collection_helper.process_new_uuid() };
+
+		url = `${url}?${by_key}=${by_value}`;
 
 		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
 		headers["content-type"] = "application/x-www-form-urlencoded";
 
-		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, {});
+		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
 
 	async save(id: string, payload: app_type.ObjectAnyAttributes, action: string = "save"): Promise<any> {
