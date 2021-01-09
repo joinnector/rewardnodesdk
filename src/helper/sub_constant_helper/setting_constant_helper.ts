@@ -17,216 +17,216 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 		create: {
 			endpoint: "/coupons",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/coupons/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/coupons",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	currency: {
 		get: {
 			endpoint: "/currencies/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/currencies",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	deal: {
 		reward: {
 			endpoint: "/dealrewards",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/deals/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/deals",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	lead: {
 		create: {
 			endpoint: "/leads",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/leads/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
 		save: {
 			endpoint: "/leads/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
-		list: {
+		fetch: {
 			endpoint: "/leads",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	notification: {
 		get: {
 			endpoint: "/notifications/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/notifications",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	review: {
 		create: {
 			endpoint: "/reviews",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/reviews/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
 		save: {
 			endpoint: "/reviews/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		delete: {
 			endpoint: "/reviews/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/reviews",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	setting: {
 		get: {
 			endpoint: "/settings/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
 	},
 	swap: {
 		create: {
 			endpoint: "/swaps",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/swaps/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/swaps",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	task: {
 		get: {
 			endpoint: "/tasks/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/tasks",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	taskactivity: {
 		create: {
 			endpoint: "/taskactivities",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/taskactivities/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
-		list: {
+		fetch: {
 			endpoint: "/taskactivities",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	wallet: {
 		create: {
 			endpoint: "/wallets",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/wallets/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
 		save: {
 			endpoint: "/wallets/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
-		list: {
+		fetch: {
 			endpoint: "/wallets",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	},
 	wallettransaction: {
 		create: {
 			endpoint: "/wallettransactions",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
 		get: {
 			endpoint: "/wallettransactions/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		},
 		save: {
 			endpoint: "/wallettransactions/{id}",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 			has_signature: true,
 		},
-		list: {
+		fetch: {
 			endpoint: "/wallettransactions",
 			prefix: "/api/v2/merchant",
-			has_authorization: true,
+
 		}
 	}
 };

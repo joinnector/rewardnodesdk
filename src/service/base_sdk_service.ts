@@ -30,7 +30,8 @@ class BaseSDKService {
 		const params = {};
 		const attributes = payload;
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 		if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(collection_helper.process_serialize_data(attributes), axios_wrapper.get_wrapper().secret);
 
 		return await axios_wrapper.get_wrapper().process_axios_post(url, headers as app_type.AxiosHeader, params, attributes);
@@ -50,7 +51,8 @@ class BaseSDKService {
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const params = { id: id };
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
@@ -69,7 +71,8 @@ class BaseSDKService {
 
 		if (swap_id) url = url + `&swap_id=${swap_id}`;
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 		headers["content-type"] = "application/x-www-form-urlencoded";
 
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
@@ -94,7 +97,8 @@ class BaseSDKService {
 		const params = { id: id };
 		const attributes = payload;
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 		if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(collection_helper.process_serialize_data(attributes), axios_wrapper.get_wrapper().secret);
 
 		return await axios_wrapper.get_wrapper().process_axios_put(url, headers as app_type.AxiosHeader, params, attributes);
@@ -114,12 +118,13 @@ class BaseSDKService {
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const params = { id: id };
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 
 		return await axios_wrapper.get_wrapper().process_axios_delete(url, headers as app_type.AxiosHeader, params);
 	}
 
-	async list(filter: app_type.ObjectAnyAttributes, paging: app_type.PagingAttributes = { page: 1, limit: 20 }, action: string = "list"): Promise<any> {
+	async fetch(filter: app_type.ObjectAnyAttributes, paging: app_type.PagingAttributes = { page: 1, limit: 20 }, action: string = "fetch"): Promise<any> {
 		if (collection_helper.validate_is_null_or_undefined(filter) === true) {
 			throw new custom_generic_error("Filter is not valid");
 		}
@@ -137,7 +142,8 @@ class BaseSDKService {
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const params = { ...filter, ...paging };
 
-		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		// if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
+		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
 
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
