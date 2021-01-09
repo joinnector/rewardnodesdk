@@ -45,17 +45,6 @@ class WinstonClient {
 				)
 			),
 			defaultMeta: { service: constant_helper.get_setting_constant().SERVICE_NAME },
-			exceptionHandlers: [
-				new winston.transports.Console({
-					format: winston.format.combine(
-						winston.format.timestamp(),
-						winston.format.simple(),
-						winston.format.printf((message: winston.LogEntry): string =>
-							winston.format.colorize().colorize(message.level, `${message.timestamp} - ${message.level} - ${message.message}`)
-						)
-					)
-				}),
-			]
 		});
 	}
 
