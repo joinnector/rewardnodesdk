@@ -5,12 +5,12 @@ class LeadService extends base_sdk_service {
 		super(name);
 	}
 
-	async get_by_email(value: string): Promise<any> {
-		return await super.get_by("email", value);
+	async get_by_email(email: string, swap_id: string = null as unknown as string): Promise<any> {
+		return await super.get_by("email", email, swap_id);
 	}
 
-	async get_by_mobile(value: string): Promise<any> {
-		return await super.get_by("mobile", value);
+	async get_by_mobile(mobile: string, swap_id: string = null as unknown as string): Promise<any> {
+		return await super.get_by("mobile", mobile, swap_id);
 	}
 }
 

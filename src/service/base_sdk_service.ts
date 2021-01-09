@@ -55,7 +55,7 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
 
-	async get_by(by_key: string, by_value: string, action: string = "get"): Promise<any> {
+	async get_by(by_key: string, by_value: string, swap_id: string = null as unknown as string, action: string = "get"): Promise<any> {
 		const apimapopts = constant_helper.get_setting_constant().API_MAP[this.name] as app_type.ObjectAnyAttributes;
 		if (collection_helper.validate_is_null_or_undefined(apimapopts[action]) === true) {
 			throw new custom_generic_error("Unable to find method name");
@@ -66,6 +66,8 @@ class BaseSDKService {
 		const params = { id: collection_helper.process_new_uuid() };
 
 		url = `${url}?${by_key}=${by_value}`;
+
+		if (swap_id) url = url + `&swap_id=${swap_id}`;
 
 		if (apimapopts[action].has_authorization) headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
 		headers["content-type"] = "application/x-www-form-urlencoded";
