@@ -1,5 +1,6 @@
 // system import
 import crypto from "crypto";
+import querystring from "querystring";
 
 // app import
 import collection_helper from "../helper/collection_helper";
@@ -29,7 +30,7 @@ class SecurityClient {
 		}
 	}
 
-	process_hmac_signature(value: string, password: string): string {
+	process_hmac_signature(value: app_type.ObjectAnyAttributes, password: string): string {
 		if (collection_helper.validate_is_null_or_undefined(value) === true) {
 			throw new custom_generic_error("Value is not valid");
 		}
@@ -49,22 +50,8 @@ class SecurityClient {
 
 		const hmac_alog = constant_helper.get_setting_constant().HMAC_ALGO as string;
 
-		return crypto.createHmac(hmac_alog, password).update(value).digest("hex");
-	}
-
-	process_sha256_hash(value: string): string {
-		if (collection_helper.validate_is_null_or_undefined(value) === true) {
-			throw new custom_generic_error("Value is not valid");
-		}
-
-		// check for type
-		if (collection_helper.validate_not_string(value) === true) {
-			throw new custom_generic_error("Value is not valid");
-		}
-
-		const hash_alog = constant_helper.get_setting_constant().HASH_ALGO as string;
-
-		return crypto.createHash(hash_alog).update(value).digest("hex");
+		// eslint-disable-next-line no-useless-escape
+		return crypto.createHmac(hmac_alog, password).update(querystring.stringify(value).split("").sort().join("")).digest("hex");
 	}
 }
 

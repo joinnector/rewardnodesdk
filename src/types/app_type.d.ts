@@ -52,8 +52,7 @@ export interface WinstonInstance {
 
 export interface SecurityInstance {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	process_hmac_signature(value: string, secret: string): string;
-	process_sha256_hash(value: string): string;
+	process_hmac_signature(value: ObjectAnyAttributes, secret: string): string;
 }
 export interface AxiosInstance {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
