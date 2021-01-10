@@ -71,6 +71,8 @@ class AxiosClient {
 		// attach default headers
 		if (headers["content-type"] === "application/json") {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/json" };
+		} else if (headers["content-type"] === "application/x-www-form-urlencoded") {
+			headers = { ...headers, "accept": "application/json", "content-type": "application/x-www-form-urlencoded" };
 		} else {
 			throw new custom_generic_error("Request headers are not valid");
 		}
@@ -84,6 +86,9 @@ class AxiosClient {
 		if (collection_helper.validate_not_null_or_undefined(params) === true
 			&& Object.keys(params).length > 0) {
 			axiosopts.params = params;
+			axiosopts.paramsSerializer = function (_params) {
+				return querystring.stringify(_params);
+			};
 		}
 
 		return await this.axios_instance.request(axiosopts);
@@ -133,6 +138,9 @@ class AxiosClient {
 		if (collection_helper.validate_not_null_or_undefined(params) === true
 			&& Object.keys(params).length > 0) {
 			axiosopts.params = params;
+			axiosopts.paramsSerializer = function (_params) {
+				return querystring.stringify(_params);
+			};
 		}
 
 		return await this.axios_instance.request(axiosopts);
@@ -160,6 +168,8 @@ class AxiosClient {
 		// attach default headers
 		if (headers["content-type"] === "application/json") {
 			headers = { ...headers, "accept": "application/json", "content-type": "application/json" };
+		} else if (headers["content-type"] === "application/x-www-form-urlencoded") {
+			headers = { ...headers, "accept": "application/json", "content-type": "application/x-www-form-urlencoded" };
 		} else {
 			throw new custom_generic_error("Request headers are not valid");
 		}
@@ -173,6 +183,9 @@ class AxiosClient {
 		if (collection_helper.validate_not_null_or_undefined(params) === true
 			&& Object.keys(params).length > 0) {
 			axiosopts.params = params;
+			axiosopts.paramsSerializer = function (_params) {
+				return querystring.stringify(_params);
+			};
 		}
 
 		return await this.axios_instance.request(axiosopts);
@@ -222,6 +235,9 @@ class AxiosClient {
 		if (collection_helper.validate_not_null_or_undefined(params) === true
 			&& Object.keys(params).length > 0) {
 			axiosopts.params = params;
+			axiosopts.paramsSerializer = function (_params) {
+				return querystring.stringify(_params);
+			};
 		}
 
 		return await this.axios_instance.request(axiosopts);
