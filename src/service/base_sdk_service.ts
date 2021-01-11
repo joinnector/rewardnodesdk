@@ -32,7 +32,7 @@ class BaseSDKService {
 
 		headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
 		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
-		if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(attributes, axios_wrapper.get_wrapper().secret);
+		// if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(attributes, axios_wrapper.get_wrapper().secret);
 
 		return await axios_wrapper.get_wrapper().process_axios_post(url, headers as app_type.AxiosHeader, params, attributes);
 	}
@@ -95,7 +95,7 @@ class BaseSDKService {
 
 		headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
 		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
-		if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(attributes, axios_wrapper.get_wrapper().secret);
+		// if (apimapopts[action].has_signature) headers["x-signature"] = security_wrapper.get_wrapper().process_hmac_signature(attributes, axios_wrapper.get_wrapper().secret);
 
 		return await axios_wrapper.get_wrapper().process_axios_put(url, headers as app_type.AxiosHeader, {}, attributes);
 	}
