@@ -78,11 +78,6 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			prefix: "/api/v2/merchant",
 
 			has_signature: true,
-		},
-		fetch: {
-			endpoint: "/leads",
-			prefix: "/api/v2/merchant",
-
 		}
 	},
 	notification: {
@@ -193,12 +188,6 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			prefix: "/api/v2/merchant",
 
 		},
-		save: {
-			endpoint: "/wallets/{id}",
-			prefix: "/api/v2/merchant",
-
-			has_signature: true,
-		},
 		fetch: {
 			endpoint: "/wallets",
 			prefix: "/api/v2/merchant",
@@ -216,12 +205,6 @@ export const API_MAP: app_type.ObjectAnyAttributes = {
 			endpoint: "/wallettransactions/{id}",
 			prefix: "/api/v2/merchant",
 
-		},
-		save: {
-			endpoint: "/wallettransactions/{id}",
-			prefix: "/api/v2/merchant",
-
-			has_signature: true,
 		},
 		fetch: {
 			endpoint: "/wallettransactions",
