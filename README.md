@@ -13,4 +13,4 @@ NodeJS 12.18.1
 Please refer https://docs.nector.io
 
 ## Npm upload
-https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56
+https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c
