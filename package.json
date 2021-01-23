@@ -18,7 +18,7 @@
 		"console": "npx ./ecosystem.console.js"
 	},
 	"dependencies": {
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"lodash": "^4.17.20",
 		"moment": "^2.27.0",
 		"querystring": "^0.2.0",
