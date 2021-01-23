@@ -1,14 +1,27 @@
 {
-	"name": "rewardnodesdk",
+	"name": "joinnector",
 	"version": "1.0.0",
-	"description": "ester rewardnodesdk",
-	"author": "ester",
-	"husky": {
-		"hooks": {
-			"pre-commit": "yarn run ts:lint && yarn run js:lint && yarn build",
-			"pre-push": "yarn run ts:lint && yarn run js:lint && yarn build"
-		}
+	"description": "Nector node SDK (nector.io is a B2B SaaS loyalty platform that allows the business to target a wider audience and increase customer engagement by rewarding them.)",
+	"keywords": [
+		"nector",
+		"reward",
+		"loyalty",
+		"coins",
+		"wallets",
+		"deals"
+	],
+	"homepage": "https://github.com/joinnector/rewardnodesdk",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/joinnector/rewardnodesdk.git"
 	},
+	"author": {
+		"name": "Ayush Shukla",
+		"email": "ayush@nector.io"
+	  },
+	"main": "dist/app.js",
+	"types": "dist/app.d.ts",
+	"license": "MIT",
 	"scripts": {
 		"build": "rm -rf dist && tsc && cp -R src/types dist/types",
 		"ts:lint": "eslint . --ext .ts",
@@ -37,7 +50,6 @@
 		"@typescript-eslint/eslint-plugin": "^3.6.0",
 		"@typescript-eslint/parser": "^3.6.0",
 		"eslint": "6.0.0",
-		"husky": "^4.3.0",
 		"typescript": "^3.9.2"
 	}
 }
