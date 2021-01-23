@@ -12,12 +12,12 @@ import custom_generic_error from "../error/custom_generic_error";
 class AxiosWrapper {
 	axios_wrapper!: axios_client;
 
-	init(key:string, secret: string): void {
-		this.prepare_common_wrapper(key, secret);
+	init(key:string, secret: string, mode: string): void {
+		this.prepare_common_wrapper(key, secret, mode);
 	}
 
-	prepare_common_wrapper(key:string, secret: string): void {
-		this.axios_wrapper = new axios_client(key, secret);
+	prepare_common_wrapper(key:string, secret: string, mode: string): void {
+		this.axios_wrapper = new axios_client(key, secret, mode);
 		this.axios_wrapper.process_attach_winston(winston_wrapper.get_wrapper());
 
 		// init

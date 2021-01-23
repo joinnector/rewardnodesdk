@@ -4,7 +4,9 @@ export const SERVICE_NAME = "nectorsdk";
 export const HMAC_ALGO = "sha256";
 export const HASH_ALGO = "sha256";
 
-export const API_BASE_URL = "https://platform.nector.io";
+export const API_PROD_BASE_URL = "https://platform.nector.io";
+export const API_DEV_BASE_URL = "https://devplatform.nector.io";
+
 
 export const API_BASE_HEADER: app_type.ObjectAnyAttributes = {
 	"accept": "application/json",

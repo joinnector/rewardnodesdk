@@ -1,13 +1,16 @@
-# Node SDK (Nector)
-NodeJS SDK for interacting with nector.
-Nector is a B2B saas solution that allows businesses to reward their users in form of point and deals based on their interfaction or create task for them to complete and get rewarded or allowing them to use redeem point across any merchant that nector supports
+# Node SDK
+nector.io is a B2B SaaS loyalty platform that allows the business to target a wider audience and increase customer engagement by rewarding them.
 
 ## Dependency
-NodeJS
+NodeJS 12.18.1
 
 ## Installation
-- `npm install joinnector-node-sdk --save` 
+- `npm install joinnector --save` 
 	or 
-- `yarn add joinnector-node-sdk`
+- `yarn add joinnector`
 
 ## Doumentation
+Please refer https://docs.nector.io
+
+## Npm upload
+https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56

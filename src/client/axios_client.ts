@@ -16,12 +16,14 @@ class AxiosClient {
 	winston_instance!: app_type.WinstonInstance;
 	key!: string;
 	secret!: string;
+	mode!: string;
 	notify_callback!: app_type.CallbackFunction;
 	notify_callback_called: boolean;
 
-	constructor(key: string, secret: string, notify_callback?: app_type.CallbackFunction) {
+	constructor(key: string, secret: string, mode: string, notify_callback?: app_type.CallbackFunction) {
 		this.key = key;
 		this.secret = secret;
+		this.mode = mode;
 		this.notify_callback_called = false;
 		if (collection_helper.validate_is_function(notify_callback) === true) this.notify_callback = notify_callback!;
 	}

@@ -17,15 +17,15 @@ import taskactivity_service from "./service/taskactivity_service";
 import wallet_service from "./service/wallet_service";
 import wallettransaction_service from "./service/wallettransaction_service";
 
-class NectorSDK {
-	constructor(key: string, secret: string) {
-		this.init_wrappers(key, secret);
+class SDK {
+	constructor(key: string, secret: string, mode: string = "prod") {
+		this.init_wrappers(key, secret, mode);
 	}
 
-	init_wrappers(key: string, secret: string): void {
+	init_wrappers(key: string, secret: string, mode: string): void {
 		security_wrapper.init();
 		winston_wrapper.init();
-		axios_wrapper.init(key, secret);
+		axios_wrapper.init(key, secret, mode);
 	}
 
 	get_coupon_service(): typeof coupon_service {
@@ -77,4 +77,4 @@ class NectorSDK {
 	}
 }
 
-export default NectorSDK;
+export default SDK;

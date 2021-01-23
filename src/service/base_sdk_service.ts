@@ -3,9 +3,6 @@ import collection_helper from "../helper/collection_helper";
 import constant_helper from "../helper/constant_helper";
 import * as app_type from "../types/app_type";
 import axios_wrapper from "../wrapper/axios_wrapper";
-import security_wrapper from "../wrapper/security_wrapper";
-
-
 
 
 class BaseSDKService {
@@ -25,7 +22,9 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "");
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "");
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const params = {};
 		const attributes = payload;
@@ -37,8 +36,8 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_post(url, headers as app_type.AxiosHeader, params, attributes);
 	}
 
-	async get(id: string, action: string = "get"): Promise<any> {
-		if (collection_helper.validate_is_null_or_undefined(id) === true) {
+	async get(by_id: string, action: string = "get"): Promise<any> {
+		if (collection_helper.validate_is_null_or_undefined(by_id) === true) {
 			throw new custom_generic_error("Id is not valid");
 		}
 
@@ -47,7 +46,9 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", id);
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", by_id);
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 
 		headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
@@ -62,7 +63,9 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", collection_helper.process_new_uuid());
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", collection_helper.process_new_uuid());
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const params = { [by_key]: by_value};
 
@@ -75,8 +78,8 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_get(url, headers as app_type.AxiosHeader, params);
 	}
 
-	async save(id: string, payload: app_type.ObjectAnyAttributes, action: string = "save"): Promise<any> {
-		if (collection_helper.validate_is_null_or_undefined(id) === true) {
+	async save(by_id: string, payload: app_type.ObjectAnyAttributes, action: string = "save"): Promise<any> {
+		if (collection_helper.validate_is_null_or_undefined(by_id) === true) {
 			throw new custom_generic_error("Id is not valid");
 		}
 
@@ -89,7 +92,9 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", id);
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", by_id);
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		const attributes = payload;
 
@@ -100,8 +105,8 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_put(url, headers as app_type.AxiosHeader, {}, attributes);
 	}
 
-	async delete(id: string, action: string = "delete"): Promise<any> {
-		if (collection_helper.validate_is_null_or_undefined(id) === true) {
+	async delete(by_id: string, action: string = "delete"): Promise<any> {
+		if (collection_helper.validate_is_null_or_undefined(by_id) === true) {
 			throw new custom_generic_error("Id is not valid");
 		}
 
@@ -110,7 +115,9 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", id);
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "").replace("{id}", by_id);
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
 		
 		headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
@@ -119,8 +126,8 @@ class BaseSDKService {
 		return await axios_wrapper.get_wrapper().process_axios_delete(url, headers as app_type.AxiosHeader, {});
 	}
 
-	async fetch(filter: app_type.ObjectAnyAttributes = {}, paging: app_type.PagingAttributes = { page: 1, limit: 20 }, action: string = "fetch"): Promise<any> {
-		if (collection_helper.validate_is_null_or_undefined(filter) === true) {
+	async fetch(by_filter: app_type.ObjectAnyAttributes = {}, paging: app_type.PagingAttributes = { page: 1, limit: 20 }, action: string = "fetch"): Promise<any> {
+		if (collection_helper.validate_is_null_or_undefined(by_filter) === true) {
 			throw new custom_generic_error("Filter is not valid");
 		}
 
@@ -133,9 +140,11 @@ class BaseSDKService {
 			throw new custom_generic_error("Unable to find method name");
 		}
 
-		const url = collection_helper.process_key_join([constant_helper.get_setting_constant().API_BASE_URL, apimapopts[action].prefix, apimapopts[action].endpoint], "");
+		const base_url = axios_wrapper.get_wrapper().mode === "prod" ? constant_helper.get_setting_constant().API_PROD_BASE_URL : constant_helper.get_setting_constant().API_DEV_BASE_URL;
+
+		const url = collection_helper.process_key_join([base_url, apimapopts[action].prefix, apimapopts[action].endpoint], "");
 		const headers = constant_helper.get_setting_constant().API_BASE_HEADER;
-		const params = { ...filter, ...paging };
+		const params = { ...by_filter, ...paging };
 
 		headers.authorization = "Basic " + Buffer.from(axios_wrapper.get_wrapper().key + ":" + axios_wrapper.get_wrapper().secret, "utf8").toString("base64");
 		headers["x-apikey"] = axios_wrapper.get_wrapper().key;
