@@ -10,7 +10,7 @@
 		}
 	},
 	"scripts": {
-		"build": "rm -rf dist && tsc",
+		"build": "rm -rf dist && tsc && cp -R src/types dist/types",
 		"ts:lint": "eslint . --ext .ts",
 		"ts:lint:fix": "eslint . --ext .ts --fix",
 		"js:lint": "eslint . --ext .js",

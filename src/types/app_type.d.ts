@@ -43,7 +43,7 @@ export type WinstonLogger = winston.Logger;
 export interface ObjectAnyAttributes {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	[name: string]: any;
-};
+}
 
 export interface WinstonInstance {
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
