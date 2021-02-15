@@ -34,7 +34,6 @@ class AxiosClient {
 
 	prepare_common_instance(): void {
 		this.axios_instance = axios.create();
-		this.axios_instance.defaults.timeout = 10000;
 
 		if (collection_helper.validate_is_function(this.notify_callback) === true && this.notify_callback_called === false) {
 			this.notify_callback_called = true;
