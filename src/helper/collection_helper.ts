@@ -129,7 +129,7 @@ class CollectionHelper {
 		}
 
 		// custom
-		if (moment.isDate(datetime) === false) {
+		if (moment(datetime).isValid() === false) {
 			throw new custom_generic_error("Datetime is not valid");
 		}
 
@@ -145,7 +145,7 @@ class CollectionHelper {
 		}
 
 		// custom
-		if (moment.isDate(datetime) === false) {
+		if (moment(datetime).isValid() === false) {
 			throw new custom_generic_error("Datetime is not valid");
 		}
 
