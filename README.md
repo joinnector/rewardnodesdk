@@ -1,5 +1,5 @@
 # Node SDK
-nector.io is a B2B SaaS loyalty platform that allows the business to target a wider audience and increase customer engagement by rewarding them.
+nector.io is a loyalty and reward APIs platform, that allows businesses to reward deals, offers, wallet points to their customers for various actions.
 
 ## Dependency
 NodeJS 12.18.1
