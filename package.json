@@ -1,7 +1,7 @@
 {
 	"name": "joinnector",
-	"version": "1.7.0",
-	"description": "Nector node SDK (nector.io is a B2B SaaS loyalty platform that allows the business to target a wider audience and increase customer engagement by rewarding them.)",
+	"version": "2.0.0",
+	"description": "Nector node SDK (nector.io is a loyalty and reward APIs platform, that allows businesses to reward deals, offers, wallet points to their customers for various actions.)",
 	"keywords": [
 		"nector",
 		"reward",
